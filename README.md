@@ -12,7 +12,7 @@
 
 ## 🛠 使い方
 
-1. ブラウザで `index.html` を開く（または GitHub Pages の URL にアクセス）。
+1. ブラウザで `index.html` を開く（または [GitHub Pages の URL](https://ryujisnote.github.io/teiki-calc/) にアクセス）。
 2. 「区間」「片道運賃」「各定期代」を入力。
 3. 「計算する」ボタンをクリックして結果を表示。
 
