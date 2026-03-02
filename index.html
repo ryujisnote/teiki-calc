@@ -1,4 +1,76 @@
-<footer class="footer" style="font-size: small; position: fixed; bottom: 0; width: 100%; text-align: center;">
-  <p>&copy; 2026 ryujisnote | <a href="https://github.com/ryujisnote/teiki-calc">GitHub Source</a>
-  </p>
-</footer>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定期券ペイ計算機</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 20px auto; padding: 20px; line-height: 1.6; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { margin-top: 0; color: #333; font-size: 1.2rem; }
+        .input-group { margin-bottom: 10px; }
+        label { display: block; font-size: 0.85rem; color: #666; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        button:hover { background: #0056b3; }
+        #result { margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 4px; white-space: pre-wrap; font-family: monospace; font-size: 0.95rem; }
+        .privacy-notice { font-size: 0.8rem; color: #999; margin-top: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>定期券ペイ計算機</h2>
+    
+    <div class="input-group">
+        <label>区間 (例: 三鷹→東京)</label>
+        <input type="text" id="route" value="三鷹→（東京／有楽町）">
+    </div>
+    <div class="input-group">
+        <label>片道運賃 (円)</label>
+        <input type="number" id="oneWay" value="406">
+    </div>
+    <div class="input-group">
+        <label>1ヶ月定期 (円)</label>
+        <input type="number" id="pass1" value="12290">
+    </div>
+    <div class="input-group">
+        <label>3ヶ月定期 (円)</label>
+        <input type="number" id="pass3" value="35050">
+    </div>
+    <div class="input-group">
+        <label>6ヶ月定期 (円)</label>
+        <input type="number" id="pass6" value="59120">
+    </div>
+
+    <button onclick="calculate()">計算する</button>
+
+    <p class="privacy-notice">
+        ※ 計算内容や計算結果はサーバに送信されることはありません
+    </p>
+
+    <div id="result">ここに結果が表示されます</div>
+</div>
+
+<script>
+function calculate() {
+    const route = document.getElementById('route').value;
+    const oneWay = parseFloat(document.getElementById('oneWay').value);
+    const pass1 = parseFloat(document.getElementById('pass1').value);
+    const pass3 = parseFloat(document.getElementById('pass3').value);
+    const pass6 = parseFloat(document.getElementById('pass6').value);
+
+    const roundTrip = oneWay * 2;
+
+    const calcDays = (price, months) => {
+        return (price / (roundTrip * months)).toFixed(2);
+    };
+
+    const res = `${route}\n片道 ${oneWay.toLocaleString()}円 往復 ${roundTrip.toLocaleString()}円\n1か月 ${pass1.toLocaleString()}円 (${calcDays(pass1, 1)}往復/月)\n3か月 ${pass3.toLocaleString()}円 (${calcDays(pass3, 3)}往復/月)\n6か月 ${pass6.toLocaleString()}円 (${calcDays(pass6, 6)}往復/月)`;
+
+    document.getElementById('result').innerText = res;
+}
+</script>
+
+</body>
+</html>
