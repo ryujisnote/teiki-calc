@@ -14,6 +14,7 @@
         button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; }
         button:hover { background: #0056b3; }
         #result { margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 4px; white-space: pre-wrap; font-family: monospace; font-size: 0.95rem; }
+        .privacy-notice { font-size: 0.8rem; color: #999; margin-top: 15px; text-align: center; }
     </style>
 </head>
 <body>
@@ -44,6 +45,10 @@
 
     <button onclick="calculate()">計算する</button>
 
+    <p class="privacy-notice">
+        ※ 計算内容や計算結果はサーバに送信されることはありません
+    </p>
+
     <div id="result">ここに結果が表示されます</div>
 </div>
 
@@ -61,11 +66,7 @@ function calculate() {
         return (price / (roundTrip * months)).toFixed(2);
     };
 
-    const res = `${route}
-片道 ${oneWay.toLocaleString()}円 往復 ${roundTrip.toLocaleString()}円
-1か月 ${pass1.toLocaleString()}円 (${calcDays(pass1, 1)}往復/月)
-3か月 ${pass3.toLocaleString()}円 (${calcDays(pass3, 3)}往復/月)
-6か月 ${pass6.toLocaleString()}円 (${calcDays(pass6, 6)}往復/月)`;
+    const res = `${route}\n片道 ${oneWay.toLocaleString()}円 往復 ${roundTrip.toLocaleString()}円\n1か月 ${pass1.toLocaleString()}円 (${calcDays(pass1, 1)}往復/月)\n3か月 ${pass3.toLocaleString()}円 (${calcDays(pass3, 3)}往復/月)\n6か月 ${pass6.toLocaleString()}円 (${calcDays(pass6, 6)}往復/月)`;
 
     document.getElementById('result').innerText = res;
 }
